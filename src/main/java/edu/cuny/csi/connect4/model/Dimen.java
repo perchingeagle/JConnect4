@@ -51,7 +51,8 @@ public class Dimen {
     };
     
     
-    public static Coordinates getCoordinates(int row, int column){
+    public static Coordinates getCoordinates(final int row, final int column){
+        if(row > 6 || column > 6) return null;
         double x = pointX[row][column];
         x += Dimen.PADDING_LEFT;  // column
         double y = pointY[row][column];

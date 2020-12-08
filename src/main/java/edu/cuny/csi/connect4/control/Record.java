@@ -15,25 +15,28 @@ import edu.cuny.csi.connect4.model.Piece;
  */
 public class Record {
     
-    private final static int EMPTY = 0;
+    private final static int ZERO = 0;
     private final Piece[][] grid;
     private final int[] slots;
     private boolean tail;
     
     public Record(){
-        this.grid = new Piece[Dimen.ROW_SIZE][Dimen.COLUMN_SIZE];
+        this.grid = new Piece[Dimen.COLUMN_SIZE][Dimen.COLUMN_SIZE];
         this.slots = new int[Dimen.COLUMN_SIZE];
-        Arrays.fill(this.slots, Dimen.ROW_SIZE);
+        Arrays.fill(this.slots, Dimen.ROW_SIZE); // 6
     }
     
-    public final boolean isAvailable(int column){
-        return this.slots[column] > Record.EMPTY;
+    public final boolean isAvailable(final int column){
+        return this.slots[column] > Record.ZERO;
     }
     
-    public final void add(Piece piece, int column) throws ArrayIndexOutOfBoundsException{
+    public final int add(final Piece piece, final int column){
         final int row = this.slots[column];
-        this.grid[row][column] = piece;
-        this.slots[column] = row - 1;
+        if(row > 0){
+            this.grid[row][column] = piece;
+            this.slots[column] = row - 1;
+        }
+        return row;
     }
     
     public final Piece nextPiece(){
